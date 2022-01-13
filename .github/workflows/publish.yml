@@ -210,18 +210,20 @@ jobs:
   test-wheels-aarch64-linux:
     needs: [package-source, package-wheel]
     runs-on: ubuntu-latest
+    env:
+      py: /opt/python/${{ matrix.pyver }}/bin/python
+      img: quay.io/pypa/manylinux2014_aarch64    
 
     strategy:
       matrix:
-       # python: [cp36-cp36m, cp37-cp37m, cp38-cp38, cp39-cp39]
         include:
-          - python: 3.6
+          - pyver: cp36-cp36m
             aiokafka_whl: dist/aiokafka-*-cp36-cp36m-manylinux*_aarch64.whl
-          - python: 3.7
+          - pyver: cp37-cp37m
             aiokafka_whl: dist/aiokafka-*-cp37-cp37m-manylinux*_aarch64.whl
-          - python: 3.8.5
+          - pyver: cp38-cp38
             aiokafka_whl: dist/aiokafka-*-cp38-cp38-manylinux*_aarch64.whl
-          - python: 3.9
+          - pyver: cp39-cp39
             aiokafka_whl: dist/aiokafka-*-cp39-cp39-manylinux*_aarch64.whl
 
     steps:
