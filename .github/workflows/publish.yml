@@ -40,6 +40,9 @@ jobs:
         include:
           - os: ubuntu-latest
             arch: aarch64
+          - os: macos-latest
+            arch: arm64
+          
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -50,7 +53,7 @@ jobs:
         uses: docker/setup-qemu-action@v1          
       - name: Build wheels
         env:
-          CIBW_ARCHS_LINUX: ${{matrix.arch}}
+          CIBW_ARCHS: ${{matrix.arch}}
           CIBW_BUILD: cp36-* cp37-* cp38-* cp39-*
           CIBW_SKIP: '*-musllinux*'
           CIBW_BEFORE_BUILD_LINUX: pip install -r requirements-cython.txt && yum install -y zlib-devel
