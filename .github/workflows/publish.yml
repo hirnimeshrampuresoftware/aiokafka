@@ -242,7 +242,7 @@ jobs:
               ${{ env.img }} \
               bash -exc '${{ env.py }} -m venv .env && \
               source .env/bin/activate && \
-              pip install --upgrade pip && \
+              yum install -y snappy-devel libzstd-devel krb5-devel && \
               pip install --upgrade pip setuptools wheel && \
               pip install -r requirements-ci.txt && \
               pip install ${{ matrix.aiokafka_whl }} && \
