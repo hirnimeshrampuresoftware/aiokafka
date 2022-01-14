@@ -167,6 +167,46 @@ jobs:
           rm -rf aiokafka
           make ci-test-unit
 
+  test-wheels-mac-arm64:
+    needs: [package-source, package-wheel]
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        python: [3.8, 3.9]
+        include:
+          - python: 3.8
+            aiokafka_whl: dist/aiokafka-*-cp38-cp38-macosx_*_arm64.whl
+          - python: 3.9
+            aiokafka_whl: dist/aiokafka-*-cp39-cp39-macosx_*_arm64.whl            
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download distributions
+        uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist/
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install system dependencies
+        run: |
+          brew install snappy
+      - name: Install python dependencies
+        run: |
+          pip install --upgrade pip setuptools wheel
+          pip install -r requirements-ci.txt
+          pip install ${{ matrix.aiokafka_whl }}
+
+      - name: Run Unit Tests
+        run: |
+          # Remove source code to be sure we use wheel code
+          rm -rf aiokafka
+          make ci-test-unit
+
   test-wheels-linux:
     needs: [package-source, package-wheel]
     runs-on: ubuntu-latest
