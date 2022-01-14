@@ -165,7 +165,7 @@ jobs:
 
   test-wheels-mac-arm64:
     needs: [package-source, package-wheel]
-    runs-on: [self-hosted, macos, ARM64]
+    runs-on: [macos, ARM64]
     #runs-on: macos-latest
 
     strategy:
