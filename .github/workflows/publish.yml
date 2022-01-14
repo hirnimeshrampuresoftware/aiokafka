@@ -135,6 +135,10 @@ jobs:
             aiokafka_whl: dist/aiokafka-*-cp38-cp38-macosx_10_9_x86_64.whl
           - python: 3.9
             aiokafka_whl: dist/aiokafka-*-cp39-cp39-macosx_10_9_x86_64.whl
+          - python: 3.8
+            aiokafka_whl: dist/aiokafka-*-cp38-cp38-macosx_*_arm64.whl
+          - python: 3.9
+            aiokafka_whl: dist/aiokafka-*-cp39-cp39-macosx_*_arm64.whl            
 
     steps:
       - uses: actions/checkout@v2
@@ -247,7 +251,7 @@ jobs:
               source .env/bin/activate && \
               yum install -y epel-release && \
               yum-config-manager --enable epel && \
-              yum install -y openssl-devel snappy-devel libzstd-devel krb5-devel && \
+              yum install -y snappy-devel libzstd-devel krb5-devel && \
               pip install --upgrade pip setuptools wheel && \
               pip install -r requirements-ci.txt && \
               pip install ${{ matrix.aiokafka_whl }} && \
