@@ -169,7 +169,6 @@ jobs:
 
     strategy:
       matrix:
-        python: [3.8, 3.9]
         include:
           - python: 3.8
             aiokafka_whl: dist/aiokafka-*-cp38-cp38-macosx_*_arm64.whl
@@ -178,9 +177,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up QEMU
-        id: qemu
-        uses: docker/setup-qemu-action@v1      
+  #    - name: Set up QEMU
+   #     id: qemu
+    #    uses: docker/setup-qemu-action@v1      
       - name: Download distributions
         uses: actions/download-artifact@v2
         with:
