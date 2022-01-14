@@ -261,7 +261,7 @@ jobs:
   deploy:
 
     runs-on: ubuntu-latest
-    needs: [test-wheels-linux, test-wheels-mac, test-wheels-windows]
+    needs: [test-wheels-linux, test-wheels-mac, test-wheels-windows, test-wheels-aarch64-linux]
 
     steps:
       - uses: actions/checkout@v2
