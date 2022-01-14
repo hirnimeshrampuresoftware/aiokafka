@@ -165,7 +165,7 @@ jobs:
 
   test-wheels-mac-arm64:
     needs: [package-source, package-wheel]
-    runs-on: [macos, ARM64]
+    runs-on: [self-hosted, macos, ARM64]
     #runs-on: macos-latest
 
     strategy:
@@ -177,10 +177,9 @@ jobs:
             aiokafka_whl: dist/aiokafka-*-cp39-cp39-macosx_*_arm64.whl            
 
     steps:
+      - name: "Delete workspace" # self-hosted runners need this
+        run: gfind ! -name '.' ! -name '..' -delete    
       - uses: actions/checkout@v2
-  #    - name: Set up QEMU
-   #     id: qemu
-    #    uses: docker/setup-qemu-action@v1      
       - name: Download distributions
         uses: actions/download-artifact@v2
         with:
