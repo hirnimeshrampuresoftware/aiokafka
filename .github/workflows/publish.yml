@@ -125,7 +125,7 @@ jobs:
 
     strategy:
       matrix:
-        python: [3.6, 3.7, 3.8, 3.9]
+     #   python: [3.6, 3.7, 3.8, 3.9]
         include:
           - python: 3.6
             aiokafka_whl: dist/aiokafka-*-cp36-cp36m-macosx_10_9_x86_64.whl
@@ -141,10 +141,10 @@ jobs:
             arch: auto
           - python: 3.8
             aiokafka_whl: dist/aiokafka-*-cp38-cp38-macosx_*_arm64.whl
-            arch: aarch64
+            arch: arm64
           - python: 3.9
             aiokafka_whl: dist/aiokafka-*-cp39-cp39-macosx_*_arm64.whl            
-            arch: aarch64
+            arch: arm64
 
     steps:
       - uses: actions/checkout@v2
