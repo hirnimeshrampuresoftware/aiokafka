@@ -129,12 +129,22 @@ jobs:
         include:
           - python: 3.6
             aiokafka_whl: dist/aiokafka-*-cp36-cp36m-macosx_10_9_x86_64.whl
+            arch: auto
           - python: 3.7
             aiokafka_whl: dist/aiokafka-*-cp37-cp37m-macosx_10_9_x86_64.whl
+            arch: auto
           - python: 3.8
             aiokafka_whl: dist/aiokafka-*-cp38-cp38-macosx_10_9_x86_64.whl
+            arch: auto
           - python: 3.9
             aiokafka_whl: dist/aiokafka-*-cp39-cp39-macosx_10_9_x86_64.whl
+            arch: auto
+          - python: 3.8
+            aiokafka_whl: dist/aiokafka-*-cp38-cp38-macosx_*_arm64.whl
+            arch: aarch64
+          - python: 3.9
+            aiokafka_whl: dist/aiokafka-*-cp39-cp39-macosx_*_arm64.whl            
+            arch: aarch64
 
     steps:
       - uses: actions/checkout@v2
