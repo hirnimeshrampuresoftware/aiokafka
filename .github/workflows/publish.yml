@@ -40,8 +40,8 @@ jobs:
         include:
           - os: ubuntu-latest
             arch: aarch64
-          - os: macos-latest
-            arch: arm64
+       #   - os: macos-latest
+        #    arch: arm64
           
     steps:
       - uses: actions/checkout@v2
@@ -125,26 +125,16 @@ jobs:
 
     strategy:
       matrix:
-     #   python: [3.6, 3.7, 3.8, 3.9]
+        python: [3.6, 3.7, 3.8, 3.9]
         include:
           - python: 3.6
             aiokafka_whl: dist/aiokafka-*-cp36-cp36m-macosx_10_9_x86_64.whl
-            arch: auto
           - python: 3.7
             aiokafka_whl: dist/aiokafka-*-cp37-cp37m-macosx_10_9_x86_64.whl
-            arch: auto
           - python: 3.8
             aiokafka_whl: dist/aiokafka-*-cp38-cp38-macosx_10_9_x86_64.whl
-            arch: auto
           - python: 3.9
             aiokafka_whl: dist/aiokafka-*-cp39-cp39-macosx_10_9_x86_64.whl
-            arch: auto
-          - python: 3.8
-            aiokafka_whl: dist/aiokafka-*-cp38-cp38-macosx_*_arm64.whl
-            arch: arm64
-          - python: 3.9
-            aiokafka_whl: dist/aiokafka-*-cp39-cp39-macosx_*_arm64.whl            
-            arch: arm64
 
     steps:
       - uses: actions/checkout@v2
@@ -172,6 +162,36 @@ jobs:
           # Remove source code to be sure we use wheel code
           rm -rf aiokafka
           make ci-test-unit
+
+  build-and-test-wheels-mac-arm64:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7         
+      - name: Build wheels
+        env:
+          CIBW_ARCHS: arm64
+          CIBW_BUILD: cp38-* cp39-*
+          #CIBW_SKIP: '*-musllinux*'
+          CIBW_BEFORE_BUILD: pip install -r requirements-cython.txt
+          CIBW_BUILD_VERBOSITY: 2
+          CIBW_BEFORE_TEST_MACOS: >
+              brew install snappy
+              pip install -r requirements-ci.txt
+          CIBW_TEST_REQUIRES_MACOS: pip setuptools wheel
+          CIBW_TEST_COMMAND_MACOS: make ci-test-unit
+        run: |
+          python -m pip install --upgrade pip setuptools
+          pip install cibuildwheel
+          cibuildwheel --output-dir dist
+        shell: bash
+      - name: Upload wheels
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist/
 
   test-wheels-linux:
     needs: [package-source, package-wheel]
