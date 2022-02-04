@@ -106,7 +106,7 @@ jobs:
 
       - name: Install python dependencies
         run: |
-          pip install --upgrade pip setuptools wheel
+          pip install --user --upgrade pip setuptools wheel
           pip install ${{ matrix.snappy_whl }}
           pip install -r requirements-win-test.txt
           pip install ${{ matrix.aiokafka_whl }}
@@ -232,7 +232,7 @@ jobs:
       fail-fast: false
     runs-on: ubuntu-18.04
     env:
-      py: python${{ matrix.pyver }}    
+      py: python${{ matrix.python_version }}    
       #py: /opt/python/${{ matrix.pyver }}/bin/python
      # img: quay.io/pypa/manylinux2014_aarch64    
 
