@@ -44,6 +44,7 @@ class TestHelpers(unittest.TestCase):
 
         print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
         openssl_version = ssl.OPENSSL_VERSION_INFO
+        print(openssl_version)
         print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         
         context = create_ssl_context(
