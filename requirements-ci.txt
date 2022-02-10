@@ -12,7 +12,7 @@ xxhash==2.0.2
 python-snappy==0.6.0
 docutils==0.17.1
 Pygments==2.10.0
-gssapi==1.7.2; platform_machine!='aarch64'
+gssapi==1.7.2
 dataclasses==0.8; python_version<"3.7"
 async_generator==1.10; python_version<"3.7"
 async-timeout==4.0.1
