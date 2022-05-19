@@ -208,6 +208,7 @@ jobs:
         run: |
           # Remove source code to be sure we use wheel code
           rm -rf aiokafka
+          openssl x509 -in tests/ssl_cert/cl_client.pem -noout -text
           make ci-test-unit
 
   test-wheels-aarch64-linux:
@@ -252,6 +253,7 @@ jobs:
               pip install -r requirements-ci.txt && \
               pip install ${{ matrix.aiokafka_whl }} && \
               rm -rf aiokafka && \
+              openssl x509 -in tests/ssl_cert/cl_client.pem -noout -text && \
               make ci-test-unit && \
               deactivate'
 
