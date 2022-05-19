@@ -201,13 +201,11 @@ jobs:
           pip install --upgrade pip setuptools wheel
           pip install -r requirements-ci.txt
           pip install ${{ matrix.aiokafka_whl }}
-
       - name: Run Unit Tests
         # FIXME 3.8.6 and 3.9.0 have broken `wait_for`
         if: ${{ matrix.python != '3.9' }}
         run: |
           # Remove source code to be sure we use wheel code
-         # openssl x509 -in tests/ssl_cert/cl_client.pem -noout -text
           rm -rf aiokafka
           make ci-test-unit
 
