@@ -258,7 +258,7 @@ jobs:
               ./Configure --prefix=/usr/local/ssl --openssldir=/usr/local/ssl && \
               openssl version && \
               rm -rf aiokafka && \
-              make ci-test-unit FLAGS="-m 'not ssl'" && \
+              make ci-test-unit FLAGS="-m \'not ssl\'" && \
               deactivate'
 
   deploy:
