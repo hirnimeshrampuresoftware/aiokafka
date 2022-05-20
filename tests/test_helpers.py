@@ -45,7 +45,6 @@ class TestHelpers(unittest.TestCase):
         print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
         openssl_version = ssl.OPENSSL_VERSION_INFO
         print(openssl_version)
-        openssl x509 -in tests/ssl_cert/cl_client.pem -noout -text
         print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         
         context = create_ssl_context(
