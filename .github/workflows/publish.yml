@@ -206,6 +206,7 @@ jobs:
         if: ${{ matrix.python != '3.9' }}
         run: |
           # Remove source code to be sure we use wheel code
+          openssl version
           rm -rf aiokafka
           make ci-test-unit
 
@@ -250,7 +251,8 @@ jobs:
               pip install --upgrade pip setuptools wheel && \
               pip install -r requirements-ci.txt && \
               pip install ${{ matrix.aiokafka_whl }} && \
-              #openssl x509 -in tests/ssl_cert/cl_client.pem -noout -text && \
+              #openssl x509 -in tests/ssl_cert/cl_client.pem -noout -text
+              openssl version && \
               rm -rf aiokafka && \
               make ci-test-unit && \
               deactivate'
