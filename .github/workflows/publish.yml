@@ -255,7 +255,9 @@ jobs:
               #openssl x509 -in tests/ssl_cert/cl_client.pem -noout -text
               wget https://www.openssl.org/source/old/1.1.1/openssl-1.1.1f.tar.gz --no-check-certificate && \
               tar -xvf openssl-1.1.1f.tar.gz && \
-              ./Configure --prefix=/usr/local/ssl --openssldir=/usr/local/ssl && \
+              cd openssl-1.1.1f && \
+              ./config && \
+              #./Configure --prefix=/usr/local/ssl --openssldir=/usr/local/ssl && \
               openssl version && \
               rm -rf aiokafka && \
               make ci-test-unit FLAGS="-m "not ssl"" && \
