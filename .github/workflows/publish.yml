@@ -245,9 +245,10 @@ jobs:
               apt install -y ${{ env.py }}-venv && \
               ${{ env.py }} -m venv .env && \
               source .env/bin/activate && \
-              yum install -y epel-release && \
-              yum-config-manager --enable epel && \
-              yum install -y snappy-devel libzstd-devel krb5-devel wget && \
+              apt-get install -y libsnappy-dev libzstd-dev libkrb5-dev wget && \
+              #yum install -y epel-release && \
+              #yum-config-manager --enable epel && \
+              #yum install -y snappy-devel libzstd-devel krb5-devel wget && \
               pip install --upgrade pip setuptools wheel && \
               pip install -r requirements-ci.txt && \
               pip install ${{ matrix.aiokafka_whl }} && \
@@ -260,7 +261,7 @@ jobs:
               #./Configure --prefix=/usr/local/ssl --openssldir=/usr/local/ssl && \
               openssl version && \
               rm -rf aiokafka && \
-              make ci-test-unit FLAGS="-m "not ssl"" && \
+              make ci-test-unit FLAGS="-m not ssl" && \
               deactivate'
 
   deploy:
