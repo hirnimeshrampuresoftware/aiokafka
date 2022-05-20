@@ -213,20 +213,18 @@ jobs:
   test-wheels-aarch64-linux:
     needs: [package-source, package-wheel]
     runs-on: ubuntu-latest
-    env:
-      py: /opt/python/${{ matrix.pyver }}/bin/python
-      img: quay.io/pypa/manylinux2014_aarch64    
 
     strategy:
       matrix:
+        pyver: [ '3.6', '3.7', '3.8', '3.9' ]
         include:
-          - pyver: cp36-cp36m
+          - pyver: 3.6
             aiokafka_whl: dist/aiokafka-*-cp36-cp36m-manylinux*_aarch64.whl
-          - pyver: cp37-cp37m
+          - pyver: 3.7
             aiokafka_whl: dist/aiokafka-*-cp37-cp37m-manylinux*_aarch64.whl
-          - pyver: cp38-cp38
+          - pyver: 3.8
             aiokafka_whl: dist/aiokafka-*-cp38-cp38-manylinux*_aarch64.whl
-          - pyver: cp39-cp39
+          - pyver: 3.9
             aiokafka_whl: dist/aiokafka-*-cp39-cp39-manylinux*_aarch64.whl
 
     steps:
@@ -242,8 +240,13 @@ jobs:
       - name: Test Wheel
         run: |
               docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
-              ${{ env.img }} \
-              bash -exc '${{ env.py }} -m venv .env && \
+              arm64v8/ubuntu \
+              bash -exc 'apt-get update && \
+              apt install software-properties-common -y && \
+              add-apt-repository ppa:deadsnakes/ppa -y && \
+              apt install -y ${{ env.py }} && \
+              apt install -y ${{ env.py }}-venv && \
+              ${{ env.py }} -m venv .env && \
               source .env/bin/activate && \
               yum install -y epel-release && \
               yum-config-manager --enable epel && \
