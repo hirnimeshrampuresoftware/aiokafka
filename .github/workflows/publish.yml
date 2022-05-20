@@ -247,7 +247,7 @@ jobs:
               source .env/bin/activate && \
               yum install -y epel-release && \
               yum-config-manager --enable epel && \
-              yum install -y snappy-devel libzstd-devel krb5-devel && \
+              yum install -y snappy-devel libzstd-devel krb5-devel wget && \
               pip install --upgrade pip setuptools wheel && \
               pip install -r requirements-ci.txt && \
               pip install ${{ matrix.aiokafka_whl }} && \
