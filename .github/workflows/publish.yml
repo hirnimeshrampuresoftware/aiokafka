@@ -3,10 +3,7 @@
 
 name: Publish
 
-on:
-  release:
-    types: [created]
-  workflow_dispatch: {}
+on: [push]
 
 jobs:
   package-source:
