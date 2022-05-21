@@ -209,8 +209,6 @@ jobs:
 
   test-wheels-aarch64-linux:
     needs: [package-source, package-wheel]
-    runs-on: ubuntu-latest
-
     strategy:
       matrix:
         pyver: [ '3.6', '3.7', '3.8', '3.9' ]
@@ -223,6 +221,10 @@ jobs:
             aiokafka_whl: dist/aiokafka-*-cp38-cp38-manylinux*_aarch64.whl
           - pyver: 3.9
             aiokafka_whl: dist/aiokafka-*-cp39-cp39-manylinux*_aarch64.whl
+    
+    runs-on: ubuntu-latest
+    env:
+      py: python${{ matrix.pyver }}
 
     steps:
       - uses: actions/checkout@v2
@@ -239,10 +241,10 @@ jobs:
               docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
               arm64v8/ubuntu \
               bash -exc 'apt-get update && \
-              apt install software-properties-common -y && \
+              apt-get install software-properties-common -y && \
               add-apt-repository ppa:deadsnakes/ppa -y && \
-              apt install -y ${{ env.py }} && \
-              apt install -y ${{ env.py }}-venv && \
+              apt-get install -y ${{ env.py }} && \
+              apt-get install -y ${{ env.py }}-venv && \
               ${{ env.py }} -m venv .env && \
               source .env/bin/activate && \
               apt-get install -y libsnappy-dev libzstd-dev libkrb5-dev wget && \
