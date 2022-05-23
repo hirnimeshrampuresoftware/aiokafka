@@ -259,7 +259,6 @@ jobs:
               #./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib no-shared zlib-dynamic && \
               ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic -Wl,-rpath=/usr/local/ssl/lib -Wl,--enable-new-dtags && \
               make && \
-              make test && \
               make install && \
               #export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64 && \
               mv /usr/bin/openssl /root/ && \
