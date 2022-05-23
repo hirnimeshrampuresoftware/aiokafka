@@ -256,7 +256,8 @@ jobs:
               wget https://www.openssl.org/source/old/1.1.1/openssl-1.1.1f.tar.gz --no-check-certificate && \
               tar -xvf openssl-1.1.1f.tar.gz && \
               cd openssl-1.1.1f && \
-              ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib no-shared zlib-dynamic && \
+              #./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib no-shared zlib-dynamic && \
+              ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic -Wl,-rpath=/usr/local/ssl/lib -Wl,--enable-new-dtags && \
               make && \
               make test && \
               make install && \
