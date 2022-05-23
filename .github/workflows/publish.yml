@@ -264,6 +264,7 @@ jobs:
               openssl version && \
               find / -name 'openssl' && \
               find / -name 'ssl' && \
+              cd .. && \
               rm -rf aiokafka && \
               make ci-test-unit && \
               deactivate'
