@@ -252,21 +252,17 @@ jobs:
               pip install -r requirements-ci.txt && \
               pip install ${{ matrix.aiokafka_whl }} && \
               openssl version && \
-              #openssl x509 -in tests/ssl_cert/cl_client.pem -noout -text
+              cd /tmp && \
               wget https://www.openssl.org/source/old/1.1.1/openssl-1.1.1f.tar.gz --no-check-certificate && \
               tar -xvf openssl-1.1.1f.tar.gz && \
               cd openssl-1.1.1f && \
-              #./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib no-shared zlib-dynamic && \
-              ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib shared zlib-dynamic -Wl,-rpath=/usr/local/ssl/lib -Wl,--enable-new-dtags && \
+              ./config --prefix=/usr --openssldir=/etc/ssl && \
               make && \
               make install && \
-              #export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64 && \
-              mv /usr/bin/openssl /root/ && \
-              ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl && \
+              export PATH=/tmp/openssl-1.1.1f/include/openssl:$PATH && \
+              export LD_LIBRARY_PATH=/tmp/openssl-1.1.1f && \
               openssl version && \
-              find / -name 'openssl' && \
-              find / -name 'ssl' && \
-              cd .. && \
+              cd /ws && \
               rm -rf aiokafka && \
               make ci-test-unit && \
               deactivate'
