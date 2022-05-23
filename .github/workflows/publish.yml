@@ -243,8 +243,8 @@ jobs:
               bash -exc 'apt-get update && \
               apt-get install software-properties-common -y && \
               add-apt-repository ppa:deadsnakes/ppa -y && \
-              apt-get install -y ${{ env.py }} && \
-              apt-get install -y ${{ env.py }}-venv && \
+              apt install -y ${{ env.py }} && \
+              apt install -y ${{ env.py }}-venv && \
               ${{ env.py }} -m venv .env && \
               source .env/bin/activate && \
               apt-get install -y libsnappy-dev libzstd-dev libkrb5-dev wget && \
