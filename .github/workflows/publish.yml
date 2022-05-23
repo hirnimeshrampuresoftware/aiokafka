@@ -210,6 +210,7 @@ jobs:
   test-wheels-aarch64-linux:
     needs: [package-source, package-wheel]
     strategy:
+      fail-fast: false
       matrix:
         pyver: [ '3.6', '3.7', '3.8', '3.9' ]
         include:
