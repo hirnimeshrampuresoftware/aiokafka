@@ -244,6 +244,7 @@ jobs:
               bash -exc '${{ env.py }} -m venv .env && \
               source .env/bin/activate && \
               #apt-get install -y libsnappy-dev libzstd-dev libkrb5-dev wget && \
+              yum -y update && \
               yum install -y epel-release && \
               yum-config-manager --enable epel && \
               yum install -y snappy-devel libzstd-devel krb5-devel wget && \
@@ -256,8 +257,10 @@ jobs:
               tar -xvf openssl-1.1.1f.tar.gz && \
               cd openssl-1.1.1f && \
               ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib no-shared zlib-dynamic && \
+              make && \
+              make test && \
+              make install && \
               export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64 && \
-              #./Configure --prefix=/usr/local/ssl --openssldir=/usr/local/ssl && \
               openssl version && \
               find / -name 'openssl' && \
               find / -name 'ssl' && \
